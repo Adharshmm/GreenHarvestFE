@@ -43,25 +43,27 @@ function ProductCard() {
   ];
   return (
     <>
-      <Row className='pe-3'>
-        {vegArray && vegArray.length > 0 ? (
-          vegArray.map((item, index) => (
-            <Col sm={4} md={3} xl={2} key={index} className="mb-4">
-              <Card style={{ width: '14rem' }} className="h-100">
-                <Card.Img variant="top" style={{ objectFit: "cover" }} src={item.imageUrl} height={200} />
-                <Card.Body>
-                  <Card.Title>{item.name}</Card.Title>
-                  <p>Price: {item.price}/-</p>
-                  <p>{item.description}</p>
-                  <Button style={{backgroundColor: "#348017"}}>Add to Cart</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
-        ) : (
-          <p>No items to display</p>
-        )}
-      </Row>
+      <div className='d-flex justify-content-evenly'>
+        <Row className='pe-3'>
+          {vegArray && vegArray.length > 0 ? (
+            vegArray.map((item, index) => ( 
+              <Col sm={6} md={4} lg={3} xl={2} key={index} className="mb-4">
+                <Card style={{ width: '14rem' }} className="h-100">
+                  <Card.Img variant="top" style={{ objectFit: "cover" }} src={item.imageUrl} height={200} />
+                  <Card.Body>
+                    <Card.Title>{item.name}</Card.Title>
+                    <p>Price: {item.price}/-</p>
+                    <p>{item.description}</p>
+                    <Button style={{ backgroundColor: "#348017" }}>Add to Cart</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <p>No items to display</p>
+          )}
+        </Row>
+      </div>
     </>
   )
 }

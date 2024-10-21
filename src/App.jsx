@@ -11,12 +11,14 @@ import EventDetaisl from './pages/EventDetaisl'
 function App() {
   return (
     <>
-      <Header />
+
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/events' element={<EventDetaisl/>}/>
+        <Route path='/' element={<Header />}>
+          <Route index element={<Home />} />
+        </Route>
+        <Route path='/events' element={<EventDetaisl />} />
         <Route path='/about' element={<About />} />
-        <Route path='/products' element={<ProductDetails/>}/>
+        <Route path='/products' element={<ProductDetails />} />
         <Route path='/login' element={<Auth />} />
         <Route path='/register' element={<Auth register={'register'} />} />
       </Routes>
