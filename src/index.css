@@ -1,0 +1,36 @@
+html,body {
+    font-family: "Noto Sans", sans-serif;
+    overflow-x: hidden;
+
+}
+
+* {
+    padding: 0px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, .7);
+    backdrop-filter: blur(5px);
+
+    color: #fff;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 600px) {
+    .learnmorebtn {
+        text-align: center;
+    }
+
+    .MainQuote {
+        font-size: medium;
+    }
+}
+.custom-label {
+    color: white !important; /* Use !important to override existing styles */
+}
+
