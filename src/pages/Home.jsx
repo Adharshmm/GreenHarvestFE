@@ -74,7 +74,7 @@ function Home() {
                     }}
                 >
                     <source
-                        src="../public/background.mp4"
+                        src="public/background.mp4"
                         type="video/mp4"
                     />
                     Your browser does not support the video tag.

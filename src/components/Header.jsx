@@ -12,7 +12,7 @@ function Header() {
             <Link style={{ textDecoration: "none" ,color:"white"}} to={"/"}>
               <img
                 alt=""
-                src="../public/logo.png"
+                src="public/logo.png"
                 width="30"
                 height="30"
                 style={{ borderRadius: '6px' }}
