@@ -47,7 +47,7 @@ function ProductCard() {
         <Row className='pe-3'>
           {vegArray && vegArray.length > 0 ? (
             vegArray.map((item, index) => ( 
-              <Col sm={6} md={4} lg={3} xl={2} key={index} className="mb-4">
+              <Col xs={6} sm={6} md={4} lg={3} xl={2} key={index} className="mb-4">
                 <Card style={{ width: '14rem' }} className="h-100">
                   <Card.Img variant="top" style={{ objectFit: "cover" }} src={item.imageUrl} height={200} />
                   <Card.Body>

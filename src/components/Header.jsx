@@ -21,9 +21,12 @@ function Header() {
               Green Harvest
             </Link>
           </Navbar.Brand>
-          <button className='btn btn-md mt-2 text-light ' style={{ backgroundColor: "#348017" }}>Logout</button>
+          <button className='btn btn-outline-light mt-2'><i class="fa-solid fa-cart-shopping"></i> Cart</button>
         </Container>
-        <button className='btn btn-outline-light me-2 mt-2'><i class="fa-solid fa-cart-shopping"></i> Cart</button>
+        <Link to={'/dashboard'} style={{ textDecoration: "none" }}>
+          <button className='btn  btn-outline-light mt-2  me-2'>Dashboard</button>
+        </Link>
+        <button className='btn btn-md mt-2 text-light me-2 ' style={{ backgroundColor: "#348017" }}>Logout</button>
       </Navbar>
       <div>
         <Outlet />

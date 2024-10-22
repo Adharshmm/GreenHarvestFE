@@ -41,7 +41,7 @@ function EventCard() {
       <Row className="pe-3">
         {eventArray && eventArray.length > 0 ? (
           eventArray.map((event, index) => (
-            <Col sm={4} md={3} xl={2} key={index} className="mb-4">
+            <Col xs={6} sm={6} md={4} lg={3} xl={2}  key={index} className="mb-4">
               <Card style={{ width: '14rem' }} className="h-95">
                 <Card.Img variant="top" style={{ objectFit: "cover" }} src={event.imageUrl} height={200} />
                 <Card.Body>

@@ -1,9 +1,12 @@
 import { MDBBtn } from 'mdb-react-ui-kit'
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function Home() {
+    useEffect(()=>{
+        sessionStorage.setItem("role","farmer")
+    },[])
     /* Number animaton counter */
     const [happyUsers, setHappyUsers] = useState(0);
     const [localVendors, setLocalVendors] = useState(0);
@@ -150,13 +153,13 @@ function Home() {
                     <Col md={2}></Col>
                     <Col md={8}>
                         <div className='row'>
-                            <div className='col-md-6'>
+                            <div className='col-md-6 learnmorebtn'>
                                 <h1 className='text-light'>Organic Marketplace</h1>
                             </div>
-                            <div className='col-md-6'>
+                            <div className='col-md-6 learnmorebtn'>
                                 <p className='text-light'>GreenHarvest allows farmers to easily list their fresh organic produce for sale and manage orders.</p>
 
-                               <Link to={'/register'}> <button className='btn btn-light fw-bold text-dark'>Sell Products</button></Link>
+                                <Link to={'/register'}> <button className='btn btn-light fw-bold text-dark'>Sell Products</button></Link>
                             </div>
                         </div>
 

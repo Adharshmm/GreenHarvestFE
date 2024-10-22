@@ -10,7 +10,7 @@ function ProductDetails() {
       <div className='row ' style={{ marginTop: "5rem" }}>
         <div className="col-md-4"></div>
         <div className="col-md-4 d-flex align-items-center">
-          <input className='form-control' type="text" placeholder='Search By Technology' onChange={(e) => { setSearchKey(e.target.value) }} />
+          <input className='form-control' type="text" placeholder='Search By items name' onChange={(e) => { setSearchKey(e.target.value) }} />
           <i className='fa-solid fa-search fa-lg text-secondary' style={{ marginLeft: '-32px' }}></i>
         </div>
         <div className="col-md-4"></div>

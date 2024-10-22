@@ -7,10 +7,10 @@ function Footer() {
       <div className='bg-black pt-3 pb-3'>
         <Row>
           <Col md={1}></Col>
-          <Col md={10}>
+          <Col md={11}>
             <div className='row text-white'>
 
-              <div className='col-md-6'><h2 className='text-white fs-1' style={{ width: '460px' }}>Connecting local farms to families</h2>
+              <div className='col-md-5'><h2 className='text-white fs-1' style={{ width: '460px' }}>Connecting local farms to families</h2>
                 <div className='d-flex'>
                   <div className='me-3'>
                     <input type="email" className='form-control' placeholder='enter your email' />
@@ -21,13 +21,19 @@ function Footer() {
                   </div>
                 </div>
               </div>
-              <div className='col-md-2 '>
+              <div className='col-md-1 '>
+                <h4>Pages</h4>
+                <p>Products</p>
+                <p>Events</p>
+                <p>Dashboard</p>
+              </div>
+              <div className='col-md-1 '>
                 <h4>About</h4>
-                <p>Our Mission</p>
+                <p>Learn More</p>
                 <p>Our Team</p>
                 <p>Careers</p>
               </div>
-              <div className='col-md-2'>
+              <div className='col-md-1'>
                 <h4>Legal</h4>
                 <p>Terms</p>
                 <p>Privacy</p>
@@ -56,7 +62,7 @@ function Footer() {
             </div>
 
           </Col>
-          <Col md={1}></Col>
+       
         </Row>
         <div className='text-center'>
           <p className='text-light'>©️2024 green harvest,inc.All rights reserved</p>
