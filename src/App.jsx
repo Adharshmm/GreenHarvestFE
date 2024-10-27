@@ -9,6 +9,7 @@ import About from './pages/About'
 import ProductDetails from './pages/ProductDetails'
 import EventDetaisl from './pages/EventDetaisl'
 import Dashboard from './pages/Dashboard'
+import Cart from './pages/Cart'
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
         <Route path='/login' element={<Auth />} />
         <Route path='/register' element={<Auth register={'register'} />} />
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/cart' element = {<Cart/>}/>
       </Routes>
       <Footer />
     </>

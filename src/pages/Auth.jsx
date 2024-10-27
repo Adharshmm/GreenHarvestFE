@@ -44,7 +44,7 @@ function Auth({ register }) {
     return (
         <div style={{ height: "80vh", paddingTop: "6rem", marginBottom: "8rem", marginTop: "2rem" }} className='d-flex align-items-center justify-content-center'>
             <Row>
-                <Link className='text-dark rounded p-2' style={{cursor:"pointer",textDecoration:"none",border:"1px solid black",width:"18%"}} to={'/'}> <i className='fa-solid fa-arrow-left'></i> Back Home</Link>
+                <Link className='text-dark rounded p-2' style={{ cursor: "pointer", textDecoration: "none", border: "1px solid black", width: "18%" }} to={'/'}> <i className='fa-solid fa-arrow-left'></i> Back Home</Link>
                 <Col md={1}></Col>
                 <Col md={10}>
                     <MDBContainer fluid>
@@ -99,6 +99,17 @@ function Auth({ register }) {
                                                     onChange={handleChange}
                                                     style={{ color: "white" }}
                                                 />
+                                                <MDBInput
+                                                    wrapperClass='mb-4 w-100'
+                                                    label='Location'
+                                                    name='farmLocation'
+                                                    id='farmLocationInput'
+                                                    type='text'
+                                                    size="lg"
+                                                    labelClass='custom-label'
+                                                    onChange={handleChange}
+                                                    style={{ color: "white" }}
+                                                />
 
                                                 {/* Additional fields for Farmer */}
                                                 {role === 'farmer' && (
@@ -108,17 +119,6 @@ function Auth({ register }) {
                                                             label='Farm Name'
                                                             name='farmName'
                                                             id='farmNameInput'
-                                                            type='text'
-                                                            size="lg"
-                                                            labelClass='custom-label'
-                                                            onChange={handleChange}
-                                                            style={{ color: "white" }}
-                                                        />
-                                                        <MDBInput
-                                                            wrapperClass='mb-4 w-100'
-                                                            label='Farm Location'
-                                                            name='farmLocation'
-                                                            id='farmLocationInput'
                                                             type='text'
                                                             size="lg"
                                                             labelClass='custom-label'

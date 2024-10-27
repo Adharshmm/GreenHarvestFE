@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Table, Modal } from 'react-bootstrap';
+import OrderManagement from '../components/OrderManagement';
+import EditProfile from '../components/EditProfile';
 
 function FarmerDashboard() {
   // Sample orders, items, and events data (replace with API data)
@@ -18,11 +20,7 @@ function FarmerDashboard() {
     { id: 2, name: 'Organic Farming Seminar', date: '2024-12-12' }
   ]);
 
-  const [profile, setProfile] = useState({
-    name: '',
-    email: '',
-    address: ''
-  });
+
 
   const [showAddItemModal, setShowAddItemModal] = useState(false);
   const [showAddEventModal, setShowAddEventModal] = useState(false);
@@ -82,99 +80,9 @@ function FarmerDashboard() {
       <h2 className="mb-4">Farmer Dashboard</h2>
 
       {/* Edit Profile Section */}
-      <Row className="mb-5">
-        <Col md={6}>
-          <h4>Edit Profile</h4>
-          <Form onSubmit={handleProfileSubmit}>
-            <Form.Group controlId="formName" className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={profile.name}
-                onChange={handleProfileChange}
-                placeholder="Enter your name"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={profile.email}
-                onChange={handleProfileChange}
-                placeholder="Enter your email"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formAddress" className="mb-3">
-              <Form.Label>Address</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={2}
-                name="address"
-                value={profile.address}
-                onChange={handleProfileChange}
-                placeholder="Enter your address"
-              />
-            </Form.Group>
-
-            <Button variant="success" type="submit">
-              Update Profile
-            </Button>
-          </Form>
-        </Col>
-      </Row>
+    <EditProfile/>
       {/* Orders Section */}
-      <Row className="mb-5">
-        <Col>
-          <h4>Manage Orders</h4>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map(order => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{order.product}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.price}</td>
-                  <td>{order.status}</td>
-                  <td>
-                    <Button
-                      variant="warning"
-                      onClick={() => updateOrderStatus(order.id, 'Pending')}
-                      className="me-2"
-                    >
-                      Set Pending
-                    </Button>
-                    <Button
-                      variant="success"
-                      onClick={() => updateOrderStatus(order.id, 'Delivered')}
-                      className="me-2"
-                    >
-                      Set Delivered
-                    </Button>
-                    <Button variant="danger" onClick={() => deleteOrder(order.id)}>
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-
+      <OrderManagement/>
 
       {/* Items Management Section */}
       <Row className="mb-5">

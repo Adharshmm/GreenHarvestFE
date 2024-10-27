@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 function Home() {
     useEffect(()=>{
-        sessionStorage.setItem("role","farmer")
+        sessionStorage.setItem("role","admin")
     },[])
     /* Number animaton counter */
     const [happyUsers, setHappyUsers] = useState(0);

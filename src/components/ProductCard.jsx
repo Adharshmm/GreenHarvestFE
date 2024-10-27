@@ -2,7 +2,10 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../Redux/cartSlice';
 function ProductCard() {
+  const dispatch = useDispatch()
   const vegArray = [
     {
       name: 'Musk Melon',
@@ -54,7 +57,7 @@ function ProductCard() {
                     <Card.Title>{item.name}</Card.Title>
                     <p>Price: {item.price}/-</p>
                     <p>{item.description}</p>
-                    <Button style={{ backgroundColor: "#348017" }}>Add to Cart</Button>
+                    <Button style={{ backgroundColor: "#348017" }} onClick={()=>dispatch(addToCart(item))}>Add to Cart</Button>
                   </Card.Body>
                 </Card>
               </Col>
