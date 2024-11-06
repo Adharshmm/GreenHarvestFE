@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
 import { Col, Row } from 'react-bootstrap'
 import Header from '../components/Header'
+import { getItemsApi } from '../services/allApi'
 
 function ProductDetails() {
   return (
     <>
-    <Header/>
+      <Header />
       <div className='row ' style={{ marginTop: "5rem" }}>
         <div className="col-md-4"></div>
         <div className="col-md-4 d-flex align-items-center">
@@ -17,7 +18,9 @@ function ProductDetails() {
       </div>
 
       <div className='ps-3' style={{ paddingTop: "3rem" }}>
-        <ProductCard />
+       
+            <ProductCard/>
+         
       </div>
 
     </>

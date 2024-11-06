@@ -4,14 +4,11 @@ import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function Home() {
-    useEffect(()=>{
-        sessionStorage.setItem("role","admin")
-    },[])
     /* Number animaton counter */
     const [happyUsers, setHappyUsers] = useState(0);
     const [localVendors, setLocalVendors] = useState(0);
     const [communities, setCommunities] = useState(0);
-
+    const [role, setRole] = useState('')
     const targetUsers = 3000;
     const targetVendors = 500;
     const targetCommunities = 100;
@@ -46,7 +43,9 @@ function Home() {
             clearInterval(userInterval);
             clearInterval(vendorInterval);
             clearInterval(communityInterval);
+            setRole(localStorage.getItem('role'))
         };
+
     }, []);
     return (
         <>
@@ -96,11 +95,27 @@ function Home() {
                                 <h1 className='text-dark text-center  mt-5 MainQuote ' style={{ fontSize: "4rem" }}>
                                     Connect Locally With Organic Producers In Your Community
                                 </h1>
-                                <Link to={"/login"} style={{ textDecoration: "none", color: "black" }}>
+                                {role === "user" ? (<div className='d-flex'>
+                                    < Link className='pe-3' to={"/products"} style={{ textDecoration: "none", color: "black" }}>
+                                        <MDBBtn className='btn-lg' outline rounded color='black'>
+                                            Buy Produce
+                                        </MDBBtn>
+                                    </Link>
+                                    < Link to={"/events"} style={{ textDecoration: "none", color: "black" }}>
+                                        <MDBBtn className='btn-lg' outline rounded color='black'>
+                                            See Events
+                                        </MDBBtn>
+                                    </Link>
+                                </div>) : role === "farmer" ? (<Link to={"/dashboard"} style={{ textDecoration: "none", color: "black" }}>
                                     <MDBBtn className='btn-lg' outline rounded color='black'>
-                                        Login
+                                        Sell Produce
                                     </MDBBtn>
-                                </Link>
+                                </Link>) : <Link to={"/dashboard"} style={{ textDecoration: "none", color: "black" }}>
+                                    <MDBBtn className='btn-lg' outline rounded color='black'>
+                                        Dashboard
+                                    </MDBBtn>
+                                </Link>}
+
                             </div>
                         </Col>
                         <Col md={2} ></Col>
@@ -108,7 +123,7 @@ function Home() {
 
 
                 </div>
-            </div>
+            </div >
 
             <div>
                 <div className='pt-5 pb-5'>

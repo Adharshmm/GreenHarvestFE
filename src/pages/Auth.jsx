@@ -1,29 +1,21 @@
-import React, { useState } from 'react'
-import 'mdb-react-ui-kit/dist/css/mdb.min.css'; // MDB styles
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBInput,
-    MDBIcon,
-    MDBCheckbox
-}
-    from 'mdb-react-ui-kit';
+import React, { useState } from 'react';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
 import { Col, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-function Auth({ register }) {
+import { Link, useNavigate } from 'react-router-dom';
+import { loginApi, registerApi } from '../services/allApi';
 
-    const [role, setRole] = useState('user'); // Toggle between 'user' and 'farmer'
+function Auth({ register }) {
+    const [role, setRole] = useState('user');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
-        farmName: '',
-        farmLocation: ''
+        address: ''
     });
+    const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -32,13 +24,68 @@ function Auth({ register }) {
         });
     };
 
-    const handleSubmit = () => {
-        const formPayload = {
-            ...formData,
-            role
-        };
-        // API call to handle registration or login
-        console.log(formPayload);
+    const validateForm = () => {
+        if (register && !formData.name.trim()) {
+            return "Name is required.";
+        }
+        if (!formData.email.trim()) {
+            return "Email is required.";
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            return "Enter a valid email address.";
+        }
+        if (!formData.password) {
+            return "Password is required.";
+        }
+        if (formData.password.length < 6) {
+            return "Password must be at least 6 characters long.";
+        }
+        if (register && !formData.address.trim()) {
+            return "Address is required.";
+        }
+        return null;
+    };
+
+    const handleSubmit = async () => {
+        setError(null);
+        const validationError = validateForm();
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
+
+        const formPayload = { ...formData, role };
+
+        try {
+            if (register) {
+                const response = await registerApi(formPayload);
+                if (response.status === 201) {
+                    alert("Registration successful");
+                    navigate('/login');
+                } else {
+                    setError(response.data);
+                }
+            } else {
+                const loginPayload = {
+                    email: formData.email,
+                    password: formData.password
+                };
+                const response = await loginApi(loginPayload);
+                if (response.status === 200) {
+                    const { token, role, id } = response.data;
+                    localStorage.setItem("token", token);
+                    localStorage.setItem("role", role);
+                    localStorage.setItem("id", id);
+                    alert("Login successful");
+                    navigate('/');
+                } else {
+                    setError(response.data.message);
+                }
+            }
+        } catch (error) {
+            console.error("Error during form submission:", error);
+            setError("An error occurred. Please try again.");
+        }
     };
 
     return (
@@ -56,17 +103,26 @@ function Auth({ register }) {
                                             <>
                                                 <h2 className="fw-bold mb-2 text-center text-light">Register as {role === 'user' ? 'User' : 'Farmer'}</h2>
 
-                                                {/* Switch between User and Farmer */}
                                                 <div className="d-flex justify-content-around mb-4">
-                                                    <button className={`btn ${role === 'user' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setRole('user')}>
+                                                    <button className={`btn ${role === 'user' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setRole("user")}>
                                                         User
                                                     </button>
-                                                    <button className={`btn ${role === 'farmer' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setRole('farmer')}>
+                                                    <button className={`btn ${role === 'farmer' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setRole("farmer")}>
                                                         Farmer
                                                     </button>
                                                 </div>
 
-                                                <MDBInput
+                                                {role === 'farmer' ? <MDBInput
+                                                    wrapperClass='mb-4 w-100'
+                                                    label='FarmerName'
+                                                    name='name'
+                                                    id='nameInput'
+                                                    type='text'
+                                                    size="lg"
+                                                    labelClass='custom-label'
+                                                    onChange={handleChange}
+                                                    style={{ color: "white" }}
+                                                /> : <MDBInput
                                                     wrapperClass='mb-4 w-100'
                                                     label='Name'
                                                     name='name'
@@ -76,7 +132,7 @@ function Auth({ register }) {
                                                     labelClass='custom-label'
                                                     onChange={handleChange}
                                                     style={{ color: "white" }}
-                                                />
+                                                />}
                                                 <MDBInput
                                                     wrapperClass='mb-4 w-100'
                                                     label='Email address'
@@ -102,8 +158,8 @@ function Auth({ register }) {
                                                 <MDBInput
                                                     wrapperClass='mb-4 w-100'
                                                     label='Location'
-                                                    name='farmLocation'
-                                                    id='farmLocationInput'
+                                                    name='address'
+                                                    id='addressInput'
                                                     type='text'
                                                     size="lg"
                                                     labelClass='custom-label'
@@ -111,22 +167,6 @@ function Auth({ register }) {
                                                     style={{ color: "white" }}
                                                 />
 
-                                                {/* Additional fields for Farmer */}
-                                                {role === 'farmer' && (
-                                                    <>
-                                                        <MDBInput
-                                                            wrapperClass='mb-4 w-100'
-                                                            label='Farm Name'
-                                                            name='farmName'
-                                                            id='farmNameInput'
-                                                            type='text'
-                                                            size="lg"
-                                                            labelClass='custom-label'
-                                                            onChange={handleChange}
-                                                            style={{ color: "white" }}
-                                                        />
-                                                    </>
-                                                )}
 
                                                 <MDBBtn size='lg' style={{ backgroundColor: "#348017" }} onClick={handleSubmit}>
                                                     Register
@@ -138,7 +178,6 @@ function Auth({ register }) {
                                         ) : (
                                             <>
                                                 <h2 className="fw-bold mb-2 text-center text-light">Sign in</h2>
-
 
                                                 <MDBInput
                                                     wrapperClass='mb-4 w-100'
@@ -171,6 +210,8 @@ function Auth({ register }) {
                                                 <p className='ms-5 text-light'>Don't have an account? <Link to={'/register'}>Register here</Link></p>
                                             </>
                                         )}
+
+                                        {error && <p className="text-danger text-center mt-3">{error}</p>}
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -181,7 +222,6 @@ function Auth({ register }) {
             </Row>
         </div>
     );
-};
+}
 
-
-export default Auth
+export default Auth;

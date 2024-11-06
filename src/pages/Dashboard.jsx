@@ -3,12 +3,13 @@ import FarmerDashboard from './FarmerDashboard'
 import ConsumerDashboard from './ConsumerDashboard'
 import Header from '../components/Header';
 import AdminDashboard from '../components/AdminDashboard';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
     const [role, setRole] = useState('');
 
     useEffect(() => {
-        const storedRole = sessionStorage.getItem("role");
+        const storedRole = localStorage.getItem("role");
         setRole(storedRole); // Update the role state
     }, []);
     return (
@@ -16,15 +17,15 @@ function Dashboard() {
             <div>
                 <Header />
             </div>
-            <div style={{ marginTop: "60px" }}>
+            <div >
                 {
-                    role === "farmer" ? (
-                        <FarmerDashboard />
+                    role === "admin" ? (
+                        <AdminDashboard />
                     ) : role === "user" ? (
                         <ConsumerDashboard />
-                    ) : (
-                        <AdminDashboard />
-                    )
+                    ) : role === "farmer"? (
+                        <FarmerDashboard />
+                    ):<div className='h-60' style={{height:"600px"}}>Please <Link to={'/login'}>Login</Link></div>
                 }
             </div>
         </>
