@@ -30,7 +30,7 @@ const AdminDashboard = () => {
         <>
 
 
-            <div style={{ display: 'flex',height:"60vh" }}>
+            <div style={{ display: 'flex',height:"100vh" }}>
                 <Sidebar setActiveSection={setActiveSection} />
                 <div style={{ marginLeft: '20px', flex: 1 }}>
                     {renderContent()}

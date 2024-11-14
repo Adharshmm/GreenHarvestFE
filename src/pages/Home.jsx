@@ -110,11 +110,16 @@ function Home() {
                                     <MDBBtn className='btn-lg' outline rounded color='black'>
                                         Sell Produce
                                     </MDBBtn>
-                                </Link>) : <Link to={"/dashboard"} style={{ textDecoration: "none", color: "black" }}>
+                                </Link>) : role === "admin" ? (<Link to={"/dashboard"} style={{ textDecoration: "none", color: "black" }}>
                                     <MDBBtn className='btn-lg' outline rounded color='black'>
                                         Dashboard
                                     </MDBBtn>
-                                </Link>}
+                                </Link>) : <Link to={"/login"} style={{ textDecoration: "none", color: "black" }}>
+                                    <MDBBtn className='btn-lg' outline rounded color='black'>
+                                        Login
+                                    </MDBBtn>
+                                </Link>
+                                }
 
                             </div>
                         </Col>

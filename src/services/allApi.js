@@ -50,3 +50,38 @@ export const addEventApi = async(reqBody,reqHeader)=>{
 export const deleteEventApi = async(eventid,reqHeader)=>{
     return await commonApi("DELETE",`${BASE_URL}/events/delete/${eventid}`,{},reqHeader)
 }
+//get all events 
+
+export const getAllEventsApi = async(reqHeader)=>{
+    return await commonApi("GET",`${BASE_URL}/events`,{},reqHeader)
+}
+
+//get all items 
+
+export const getAllItemsApi = async(reqHeader)=>{
+    return await commonApi("GET",`${BASE_URL}/items`,{},reqHeader)
+}
+
+//update event status
+
+export const updateEventStatusApi = async(reqBody,reqHeader)=>{
+    return await commonApi("PUT",`${BASE_URL}/event/status`,reqBody,reqHeader)
+}
+export const updateItemStatusApi = async(reqBody,reqHeader)=>{
+    return await commonApi("PUT",`${BASE_URL}/item/status`,reqBody,reqHeader)
+}
+
+export const userDetailsApi = async(reqHeader)=>{
+    return await commonApi("GET",`${BASE_URL}/userdetails`,{},reqHeader)
+}
+export const farmerDetailsApi = async(reqHeader)=>{
+    return await commonApi("GET",`${BASE_URL}/farmerdetails`,{},reqHeader)
+}
+
+export const addItemToCartApi = async(reqBody,reqHeader)=>{
+   return await commonApi("POST",`${BASE_URL}/add-cart`,reqBody,reqHeader);
+}
+
+export const getAllCartItemAPi = async(reqHeader)=>{
+    return await commonApi("GET",`${BASE_URL}/all-cart`,{},reqHeader)
+}

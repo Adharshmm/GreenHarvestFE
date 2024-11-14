@@ -1,29 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
+import { getAllItemsApi, updateItemStatusApi } from '../../services/allApi';
 
 const Items = () => {
     // Sample items data - replace this with actual data from your backend
-    const [items, setItems] = useState([
-        { id: 1, name: 'Item 1', description: 'Description for Item 1', status: 'Pending' },
-        { id: 2, name: 'Item 2', description: 'Description for Item 2', status: 'Pending' },
-    ]);
-
-    const handleApprove = (itemId) => {
-        // Logic to approve the item
-        console.log(`Approved item with ID: ${itemId}`);
-        setItems(items.map(item => 
-            item.id === itemId ? { ...item, status: 'Approved' } : item
-        ));
+    const [items, setItems] = useState([]);
+    const [refresh,setRefresh] = useState(false)
+    const handleApprove = async (e, status, eventId) => {
+        e.preventDefault();
+        const reqBody = { status, _id: eventId };
+        try {
+            const response = await updateItemStatusApi(reqBody, reqHeader);
+            if (response.status == 201) {
+                alert(response)
+                setRefresh(true)
+            }
+        } catch (error) {
+            console.error("Error updating event status:", error);
+        }
     };
 
     const handleDeny = (itemId) => {
         // Logic to deny the item
         console.log(`Denied item with ID: ${itemId}`);
-        setItems(items.map(item => 
+        setItems(items.map(item =>
             item.id === itemId ? { ...item, status: 'Denied' } : item
         ));
     };
-
+    let reqHeader
+    if (localStorage.getItem("token")) {
+        reqHeader = {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    }
+    const getAllItems = async () => {
+        const response = await getAllItemsApi(reqHeader)
+        console.log(response)
+        setItems(response.data.allItems)
+    }
+    useEffect(() => {
+        getAllItems()
+        setRefresh(false)
+    }, [refresh])
     return (
         <div>
             <h2 className="mb-4">Manage Items</h2>
@@ -31,29 +50,29 @@ const Items = () => {
                 <thead>
                     <tr>
                         <th>Item Name</th>
-                        <th>Description</th>
+                        <th>Price</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {items.map(item => (
-                        <tr key={item.id}>
+                        <tr key={item._id}>
                             <td>{item.name}</td>
-                            <td>{item.description}</td>
+                            <td>₨{item.price}</td>
                             <td>{item.status}</td>
                             <td>
-                                <Button 
-                                    variant="success" 
-                                    onClick={() => handleApprove(item.id)} 
-                                    disabled={item.status !== 'Pending'}
+                                <Button
+                                    value={"approved"}
+                                    variant="success"
+                                    onClick={(e) => handleApprove(e,e.target.value,item._id)}
                                 >
                                     Approve
                                 </Button>
-                                <Button 
-                                    variant="danger" 
-                                    onClick={() => handleDeny(item.id)} 
-                                    disabled={item.status !== 'Pending'} 
+                                <Button
+                                    value={"rejected"}
+                                    variant="danger"
+                                    onClick={(e) => handleApprove(e,e.target.value,item._id)}
                                     className="ms-2"
                                 >
                                     Deny

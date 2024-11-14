@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Alert } from 'react-bootstrap';
+import { userDetailsApi } from '../../services/allApi';
 
 const Users = () => {
     // Sample users data - replace this with actual data from your backend
@@ -15,7 +16,18 @@ const Users = () => {
         setUsers(users.filter(user => user.id !== userId));
         setNotification(`User with ID: ${userId} has been deleted successfully.`);
     };
-
+    useEffect(()=>{
+        getUserDetailsFun()
+    },[])
+    const reqHeader = {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+    const getUserDetailsFun = async()=>{
+        const response = await userDetailsApi(reqHeader)
+        console.log(response)
+        setUsers(response.data)
+    }
     return (
         <div>
             <h2 className="mb-4">Manage Users</h2>
@@ -35,7 +47,7 @@ const Users = () => {
                         </tr>
                     ) : (
                         users.map(user => (
-                            <tr key={user.id}>
+                            <tr key={user._id}>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>

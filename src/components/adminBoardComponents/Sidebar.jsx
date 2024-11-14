@@ -3,7 +3,7 @@ import { Nav } from 'react-bootstrap';
 
 function Sidebar({ setActiveSection }) {
     return (
-        <div className="bg-light" style={{ width: '250px', borderRight: '1px solid #ddd', padding: '20px', height: '60vh' }}>
+        <div className="bg-light" style={{ width: '250px', borderRight: '1px solid #ddd', padding: '20px', height: '100vh' }}>
             <h3 className="text-center">Admin Menu</h3>
             <Nav defaultActiveKey="/home" className="flex-column">
                 <Nav.Link 

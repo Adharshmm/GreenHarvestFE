@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Alert } from 'react-bootstrap';
+import { farmerDetailsApi } from '../../services/allApi';
 
 const Farmers = () => {
     // Sample farmers data - replace this with actual data from your backend
-    const [farmers, setFarmers] = useState([
-        { id: 1, name: 'Farmer 1', farmName: 'Green Acres' },
-        { id: 2, name: 'Farmer 2', farmName: 'Sunny Fields' },
-        { id: 3, name: 'Farmer 3', farmName: 'Fresh Produce Co.' },
-    ]);
+    const [farmers, setFarmers] = useState([]);
     const [notification, setNotification] = useState('');
 
     const handleDelete = (farmerId) => {
@@ -15,6 +12,18 @@ const Farmers = () => {
         setFarmers(farmers.filter(farmer => farmer.id !== farmerId));
         setNotification(`Farmer with ID: ${farmerId} has been deleted successfully.`);
     };
+    useEffect(()=>{
+        getFarmerDetailsFun()
+    },[])
+    const reqHeader = {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+    const getFarmerDetailsFun = async()=>{
+        const response = await farmerDetailsApi(reqHeader)
+        console.log(response)
+        setFarmers(response.data)
+    }
 
     return (
         <div>
@@ -24,7 +33,7 @@ const Farmers = () => {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Farm Name</th>
+                        <th>Email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -35,9 +44,9 @@ const Farmers = () => {
                         </tr>
                     ) : (
                         farmers.map(farmer => (
-                            <tr key={farmer.id}>
+                            <tr key={farmer._id}>
                                 <td>{farmer.name}</td>
-                                <td>{farmer.farmName}</td>
+                                <td>{farmer.email}</td>
                                 <td>
                                     <Button 
                                         variant="danger" 

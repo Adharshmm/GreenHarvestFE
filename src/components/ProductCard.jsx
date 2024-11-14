@@ -35,9 +35,9 @@ function ProductCard() {
     getAllProjectapi();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(products)
-  },[products])
+  }, [products])
 
   return (
     <div className='d-flex justify-content-evenly'>
@@ -51,7 +51,22 @@ function ProductCard() {
                   <Card.Title>{item.name}</Card.Title>
                   <p>Price: {item.price}/-</p>
                   <p>{item.description}</p>
-                  <Button style={{ backgroundColor: "#348017" }} onClick={() => dispatch(addToCart(item))}>
+                  <Button style={{ backgroundColor: "#348017" }} onClick={() => {
+                    const reqBody = {
+                      productId: item._id,
+                      Pname: item.name,
+                      price: item.price,
+                      imageUrl: item.imageUrl,
+                      quantity:1
+                    }
+                    const token = localStorage.getItem("token")
+                    const reqHeader = {
+                      "Content-Type": "application/json",
+                      'Authorization': `Bearer ${token}`
+                    }
+                    dispatch(addToCart(reqBody))
+
+                  }}>
                     Add to Cart
                   </Button>
                 </Card.Body>

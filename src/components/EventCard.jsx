@@ -1,40 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Card from 'react-bootstrap/Card';
 import { Row,Col } from 'react-bootstrap';
+import { getAllEventsApi } from '../services/allApi';
 function EventCard() {
-  const eventArray = [
-    {
-      title: 'Organic Farming Workshop',
-      date: '2024-11-05',
-      description: 'Learn sustainable farming practices in this hands-on workshop.',
-      imageUrl: 'https://example.com/workshop-image.jpg',
-    },
-    {
-      title: 'Farm-to-Table Event',
-      date: '2024-11-12',
-      description: 'Experience fresh, local produce with an exclusive farm-to-table dinner.',
-      imageUrl: 'https://example.com/farm-to-table.jpg',
-    },
-    {
-      title: 'Community Gardening Meetup',
-      date: '2024-11-20',
-      description: 'Join fellow gardeners to exchange tips and ideas for community gardening.',
-      imageUrl: 'https://example.com/gardening-meetup.jpg',
-    },
-    {
-      title: 'Harvest Festival',
-      date: '2024-12-01',
-      description: 'Celebrate the harvest with food, music, and community activities.',
-      imageUrl: 'https://example.com/harvest-festival.jpg',
-    },
-    {
-      title: 'Farmers Market',
-      date: '2024-12-10',
-      description: 'Explore a wide selection of fresh produce from local farmers.',
-      imageUrl: 'https://example.com/farmers-market.jpg',
-    },
-  ];
+  const [eventArray,setEventArray] = useState([]);
+useEffect(()=>{
+eventGetFun()
+},[])
+  const reqHeader = {
+    "Content-Type": "application/json",
+    'Authorization': `Bearer ${localStorage.getItem("token")}`
+}
+  const eventGetFun = async()=>{
+    const events = await getAllEventsApi(reqHeader)
+    console.log(events)
+    setEventArray(events.data)
+  }
 
   return (
     <>
@@ -46,8 +28,8 @@ function EventCard() {
                 <Card.Img variant="top" style={{ objectFit: "cover" }} src={event.imageUrl} height={200} />
                 <Card.Body>
                   <Card.Title>{event.title}</Card.Title>
-                  <p>Date: {event.date}</p>
-                  <p>{event.description}</p>
+                  <p>Date: {event.date.split("T")[0]}</p>
+                  <p>{event.description.split(14)}..</p>
                 </Card.Body>
               </Card>
             </Col>
