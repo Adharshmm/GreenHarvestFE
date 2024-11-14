@@ -15,6 +15,10 @@ function Home() {
 
     useEffect(() => {
         // Animation for happy users
+        const roleFromStorage = localStorage.getItem('role');
+        if (roleFromStorage && roleFromStorage !== role) {
+            setRole(roleFromStorage);
+        }
         const userInterval = setInterval(() => {
             setHappyUsers(prev => {
                 const nextCount = prev + Math.ceil(targetUsers / 100);
@@ -130,6 +134,9 @@ function Home() {
                 </div>
             </div >
 
+
+
+
             <div>
                 <div className='pt-5 pb-5'>
                     <Row>
@@ -168,6 +175,10 @@ function Home() {
 
                 </div>
             </div>
+
+
+
+
             <div className='pt-5 pb-5' style={{ backgroundColor: "#348017" }} height={40}>
                 <Row>
                     <Col md={2}></Col>
