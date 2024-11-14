@@ -43,7 +43,7 @@ function Cart() {
   useEffect(() => {
     console.log(cartItems)
     dispatch(getAllCartItems())
-  }, [])
+  }, [dispatch])
 
   return (
     <>
